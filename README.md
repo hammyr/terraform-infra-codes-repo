@@ -18,16 +18,16 @@
 
 ### Terraform github repo file structure including `child_module` & `root_module` terraform scripts:
 - here inside repo folder we have these folders:
-	-`environments` folder for `root_module` terraform codes.
-	-`modules` folder for `child_module` terraform codes.
-	-`prerequisite-resources` folder for terraform codes for `S3 bucket` for backend & `dynamodb table` for locking statefile.
-	-`buildspec-dev.yml` script for `AWS CodeBuild` for build process in `dev environment`.
-	-`buildspec-stag.yml` script for `AWS CodeBuild` for build process in `stag environment`.
-	-`buildspec-dev.sh` script for manually run terraform script for provision infra in `dev environment`.
-	-`buildspec-stag.sh` script for manually run terraform script for provision infra in `stag environment`.
-	-`.gitignore` file for ignore imp statefile & all.
-	-`LICENSE` file for common license.
-	-`README.md` for our guidance.
+	- `environments` folder for `root_module` terraform codes.
+	- `modules` folder for `child_module` terraform codes.
+	- `prerequisite-resources` folder for terraform codes for `S3 bucket` for backend & `dynamodb table` for locking statefile.
+	- `buildspec-dev.yml` script for `AWS CodeBuild` for build process in `dev environment`.
+	- `buildspec-stag.yml` script for `AWS CodeBuild` for build process in `stag environment`.
+	- `buildspec-dev.sh` script for manually run terraform script for provision infra in `dev environment`.
+	- `buildspec-stag.sh` script for manually run terraform script for provision infra in `stag environment`.
+	- `.gitignore` file for ignore imp statefile & all.
+	- `LICENSE` file for common license.
+	- `README.md` for our guidance.
 ```
 /*
 -Noted:  here we have created file structure for 3 environments(dev, stag, prod) but we have wriiten
