@@ -11,14 +11,13 @@ set -o pipefail
 
 
 # terraform install & configure in ubuntu-20.4
-sudo su
-apt update -y
-apt install -y unzip wget
-wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
-unzip terraform_1.5.7_linux_amd64.zip
-mv terraform /usr/local/bin
-rm -rf terraform_1.5.7_linux_amd64.zip
-terraform --version
+sudo apt update -y
+sudo apt install -y unzip wget
+sudo wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
+sudo unzip terraform_1.5.7_linux_amd64.zip
+sudo mv terraform /usr/local/bin
+sudo rm -rf terraform_1.5.7_linux_amd64.zip
+sudo terraform --version
 
 
 
@@ -28,9 +27,9 @@ terraform --version
 
 
 # git install & clone repo from hammyr public repo:
-apt install git -y
-git --version
-git clone https://github.com/hammyr/terraform-infra-codes-repo.git
+sudo apt install git -y
+sudo git --version
+sudo git clone https://github.com/hammyr/terraform-infra-codes-repo.git
 
 
 
