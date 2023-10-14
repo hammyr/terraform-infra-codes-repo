@@ -1,3 +1,148 @@
+# ===========================================
+[ec2-user@ip-172-31-3-203 ~]$ tree terraform-infra-codes-repo/
+terraform-infra-codes-repo/
+├── buildspec-dev.sh
+├── buildspec-dev.yml
+├── buildspec-stag.sh
+├── buildspec-stag.yml
+├── environments
+│   ├── dev
+│   │   ├── compute
+│   │   │   ├── data.tf
+│   │   │   ├── dev-compute.conf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── database
+│   │   │   ├── data.tf
+│   │   │   ├── dev-database.conf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── network
+│   │   │   ├── data.tf
+│   │   │   ├── dev-network.conf
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── versions.tf
+│   │   └── storage
+│   │       ├── data.tf
+│   │       ├── dev-storage.conf
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       ├── terraform.tfvars
+│   │       ├── variables.tf
+│   │       └── version.tf
+│   ├── prod
+│   │   ├── compute
+│   │   │   ├── data.tf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── prod-compute.conf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── database
+│   │   │   ├── data.tf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── prod-database.conf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── network
+│   │   │   ├── data.tf
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── prod-network.conf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── versions.tf
+│   │   └── storage
+│   │       ├── data.tf
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       ├── prod-storage.conf
+│   │       ├── terraform.tfvars
+│   │       ├── variables.tf
+│   │       └── version.tf
+│   └── stag
+│       ├── compute
+│       │   ├── data.tf
+│       │   ├── main.tf
+│       │   ├── output.tf
+│       │   ├── stag-compute.conf
+│       │   ├── terraform.tfvars
+│       │   ├── variables.tf
+│       │   └── version.tf
+│       ├── database
+│       │   ├── data.tf
+│       │   ├── main.tf
+│       │   ├── output.tf
+│       │   ├── stag-database.conf
+│       │   ├── terraform.tfvars
+│       │   ├── variables.tf
+│       │   └── version.tf
+│       ├── network
+│       │   ├── data.tf
+│       │   ├── main.tf
+│       │   ├── outputs.tf
+│       │   ├── stag-network.conf
+│       │   ├── terraform.tfvars
+│       │   ├── variables.tf
+│       │   └── versions.tf
+│       └── storage
+│           ├── data.tf
+│           ├── main.tf
+│           ├── output.tf
+│           ├── stag-storage.conf
+│           ├── terraform.tfvars
+│           ├── variables.tf
+│           └── version.tf
+├── LICENSE
+├── modules
+│   ├── compute
+│   │   └── ec2_module
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       ├── README.txt
+│   │       └── variables.tf
+│   ├── database
+│   │   └── rds_module
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       └── variables.tf
+│   ├── network
+│   │   ├── security_group_module
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   └── vpc_module
+│   │       ├── main.tf
+│   │       ├── outputs.tf
+│   │       └── variables.tf
+│   └── storage
+│       └── s3_module
+│           ├── main.tf
+│           ├── output.tf
+│           └── variables.tf
+├── prerequisite-resources
+│   ├── main.tf
+│   └── README.txt
+└── README.md
+
+27 directories, 108 files
+
+
+# =============================================
+
+
 # terraform GitHub repo for terraform modules:
 - here we have complete `child_module` for vpc, security_group, database, ec2-instance.
 - here we have complete `root_module` for all above resources.
