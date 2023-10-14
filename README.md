@@ -17,9 +17,210 @@
 
 
 ### Terraform github repo file structure including `child_module` & `root_module` terraform scripts:
-- here we have created file structure for 3 environments(dev, stag, prod) but we have wriiten terraform
-- script for only 2 environments(dev & stag) bcuz of billing, but infra is same so you can understand  whole process.
-- to be cont.........
+- here inside repo folder we have these folders:
+	-`environments` folder for `root_module` terraform codes.
+	-`modules` folder for `child_module` terraform codes.
+	-`prerequisite-resources` folder for terraform codes for `S3 bucket` for backend & `dynamodb table` for locking statefile.
+	-`buildspec-dev.yml` script for `AWS CodeBuild` for build process in `dev environment`.
+	-`buildspec-stag.yml` script for `AWS CodeBuild` for build process in `stag environment`.
+	-`buildspec-dev.sh` script for manually run terraform script for provision infra in `dev environment`.
+	-`buildspec-stag.sh` script for manually run terraform script for provision infra in `stag environment`.
+	-`.gitignore` file for ignore imp statefile & all.
+	-`LICENSE` file for common license.
+	-`README.md` for our guidance.
+```
+/*
+-Noted:  here we have created file structure for 3 environments(dev, stag, prod) but we have wriiten
+terraform script for only 2 environments(dev & stag) bcuz of billing, but infra is same so you
+can understand  whole process.
+*/
+
+
+[ec2-user@ip-172-31-3-203 ~]$ tree terraform-infra-codes-repo/
+terraform-infra-codes-repo/
+├── buildspec-dev.sh
+├── buildspec-dev.yml
+├── buildspec-stag.sh
+├── buildspec-stag.yml
+├── environments
+│   ├── dev
+│   │   ├── compute
+│   │   │   ├── data.tf
+│   │   │   ├── dev-compute.conf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── database
+│   │   │   ├── data.tf
+│   │   │   ├── dev-database.conf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── network
+│   │   │   ├── data.tf
+│   │   │   ├── dev-network.conf
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── versions.tf
+│   │   └── storage
+│   │       ├── data.tf
+│   │       ├── dev-storage.conf
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       ├── terraform.tfvars
+│   │       ├── variables.tf
+│   │       └── version.tf
+│   ├── prod
+│   │   ├── compute
+│   │   │   ├── data.tf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── prod-compute.conf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── database
+│   │   │   ├── data.tf
+│   │   │   ├── main.tf
+│   │   │   ├── output.tf
+│   │   │   ├── prod-database.conf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── version.tf
+│   │   ├── network
+│   │   │   ├── data.tf
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── prod-network.conf
+│   │   │   ├── terraform.tfvars
+│   │   │   ├── variables.tf
+│   │   │   └── versions.tf
+│   │   └── storage
+│   │       ├── data.tf
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       ├── prod-storage.conf
+│   │       ├── terraform.tfvars
+│   │       ├── variables.tf
+│   │       └── version.tf
+│   └── stag
+│       ├── compute
+│       │   ├── data.tf
+│       │   ├── main.tf
+│       │   ├── output.tf
+│       │   ├── stag-compute.conf
+│       │   ├── terraform.tfvars
+│       │   ├── variables.tf
+│       │   └── version.tf
+│       ├── database
+│       │   ├── data.tf
+│       │   ├── main.tf
+│       │   ├── output.tf
+│       │   ├── stag-database.conf
+│       │   ├── terraform.tfvars
+│       │   ├── variables.tf
+│       │   └── version.tf
+│       ├── network
+│       │   ├── data.tf
+│       │   ├── main.tf
+│       │   ├── outputs.tf
+│       │   ├── stag-network.conf
+│       │   ├── terraform.tfvars
+│       │   ├── variables.tf
+│       │   └── versions.tf
+│       └── storage
+│           ├── data.tf
+│           ├── main.tf
+│           ├── output.tf
+│           ├── stag-storage.conf
+│           ├── terraform.tfvars
+│           ├── variables.tf
+│           └── version.tf
+├── LICENSE
+├── modules
+│   ├── compute
+│   │   └── ec2_module
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       ├── README.txt
+│   │       └── variables.tf
+│   ├── database
+│   │   └── rds_module
+│   │       ├── main.tf
+│   │       ├── output.tf
+│   │       └── variables.tf
+│   ├── network
+│   │   ├── security_group_module
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   └── vpc_module
+│   │       ├── main.tf
+│   │       ├── outputs.tf
+│   │       └── variables.tf
+│   └── storage
+│       └── s3_module
+│           ├── main.tf
+│           ├── output.tf
+│           └── variables.tf
+├── prerequisite-resources
+│   ├── main.tf
+│   └── README.txt
+└── README.md
+
+27 directories, 108 files
+
+```
+
+
+
+### S3 bucket and folder structure for `terraform.tfstate` file for all `environments`:
+- for `dev` environment we have 4 `terraform.tfstate` file.
+- for `stag` environment we have 4 `terraform.tfstate` file.
+- for `prod` environment we have 4 `terraform.tfstate` file.
+- see below all stattefile structure:
+```
+[ec2-user@ip-172-31-3-203 ~]$ tree hr-tf-admin-terraform-state-01/
+hr-tf-admin-terraform-state-01/
+├── dev
+│   ├── compute
+│   │   └── terraform.tfstate
+│   ├── database
+│   │   └── terraform.tfstate
+│   ├── network
+│   │   └── terraform.tfstate
+│   └── storage
+│       └── terraform.tfstate
+├── prod
+│   ├── compute
+│   │   └── terraform.tfstate
+│   ├── database
+│   │   └── terraform.tfstate
+│   ├── network
+│   │   └── terraform.tfstate
+│   └── storage
+│       └── terraform.tfstate
+└── stag
+    ├── compute
+    │   └── terraform.tfstate
+    ├── database
+    │   └── terraform.tfstate
+    ├── network
+    │   └── terraform.tfstate
+    └── storage
+        └── terraform.tfstate
+
+15 directories, 12 files
+
+```
+
+
 
 
 
