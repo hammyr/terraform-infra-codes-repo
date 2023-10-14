@@ -23,11 +23,14 @@
 	- `prerequisite-resources` folder for terraform codes for `S3 bucket` for backend & `dynamodb table` for locking statefile.
 	- `buildspec-dev.yml` script for `AWS CodeBuild` for build process in `dev environment`.
 	- `buildspec-stag.yml` script for `AWS CodeBuild` for build process in `stag environment`.
-	- `buildspec-dev.sh` script for manually run terraform script for provision infra in `dev environment`.
-	- `buildspec-stag.sh` script for manually run terraform script for provision infra in `stag environment`.
 	- `.gitignore` file for ignore imp statefile & all.
 	- `LICENSE` file for common license.
 	- `README.md` for our guidance.
+	- `01-buildspec-dev.sh` script for manually run terraform script for provision infra in `dev environment`.
+	- `02-destroyspec-dev.sh` script for manually run terraform script for destroy infra in `dev environment`.
+	- `03-buildspec-stag.sh` script for manually run terraform script for provision infra in `stag environment`.
+	- `04-destroyspec-stag.sh` script for manually run terraform script for destroy infra in `stag environment`.
+	
 ```
 /*
 -Noted:  here we have created file structure for 3 environments(dev, stag, prod) but we have wriiten
@@ -36,11 +39,15 @@ can understand  whole process.
 */
 
 
-[ec2-user@ip-172-31-3-203 ~]$ tree terraform-infra-codes-repo/
+root@ip-172-31-42-136:/home/ubuntu# tree terraform-infra-codes-repo/
 terraform-infra-codes-repo/
-├── buildspec-dev.sh
+├── 01-buildspec-dev.sh
+├── 02-destroyspec-dev.sh
+├── 03-buildspec-stag.sh
+├── 04-destroyspec-stag.sh
+├── LICENSE
+├── README.md
 ├── buildspec-dev.yml
-├── buildspec-stag.sh
 ├── buildspec-stag.yml
 ├── environments
 │   ├── dev
@@ -142,13 +149,12 @@ terraform-infra-codes-repo/
 │           ├── terraform.tfvars
 │           ├── variables.tf
 │           └── version.tf
-├── LICENSE
 ├── modules
 │   ├── compute
 │   │   └── ec2_module
+│   │       ├── README.txt
 │   │       ├── main.tf
 │   │       ├── output.tf
-│   │       ├── README.txt
 │   │       └── variables.tf
 │   ├── database
 │   │   └── rds_module
@@ -169,12 +175,11 @@ terraform-infra-codes-repo/
 │           ├── main.tf
 │           ├── output.tf
 │           └── variables.tf
-├── prerequisite-resources
-│   ├── main.tf
-│   └── README.txt
-└── README.md
+└── prerequisite-resources
+    ├── README.txt
+    └── main.tf
 
-27 directories, 108 files
+27 directories, 110 files
 
 ```
 
