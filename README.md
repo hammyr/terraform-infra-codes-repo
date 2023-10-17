@@ -322,6 +322,43 @@ module "all_sg" {
 
 
 
+### `Imp`: how to get `attribute ids`, etc from `terraform.tfstate` file through `terraform command`
+```
+# get all output attribute whatever you defined within output block
+$ terraform output
+dev_db_rt_id = "rtb-02a75ed89a3463bc8"
+dev_db_subnet_id_1 = "subnet-03190b37ecfa3cc7e"
+dev_db_subnet_id_2 = "subnet-0c8d529c858bf2a97"
+dev_private_rt_id = "rtb-06575f6c42ac42a36"
+dev_private_subnet_1_id = "subnet-0ce4a4d7fdf9d2678"
+dev_private_subnet_2_id = "subnet-0d2f749f3abf64249"
+dev_public_rt_id = "rtb-09eeb5514c789db62"
+dev_public_subnet_1_id = "subnet-08f5da1a06e5fba3c"
+dev_public_subnet_2_id = "subnet-065e36e9690998b3d"
+dev_vpc_id = "vpc-004762cb2022069c4"
+root_module_dev_alb_sg_id = "sg-0fe08453cc4489f88"
+root_module_dev_app_sg_id = "sg-00921042f8c39b1ec"
+root_module_dev_bastion_sg_id = "sg-08fb314f117548ec8"
+root_module_dev_db_sg_id = "sg-0406f102ed38f7c80"
+
+
+# how to get attribute from a particular output block
+terraform output ouput-block-name		#syntax
+$ terraform output dev_vpc_id
+"vpc-004762cb2022069c4"
+
+$ terraform output dev_db_rt_id
+"rtb-02a75ed89a3463bc8"
+
+
+#-Noted: module ke case me root-module ka ouput-block-name define hoga, see syntax
+terraform output root-module-ouput-block-name		#to see particular output value.
+terraform output				# to see all outputs value from root-module-ouput-blocks.
+```
+
+
+
+
 ### all shell script files to create and destroy all infra in all environments:
 #### `01-buildspec-dev.sh` script for manually run terraform script for provision infra in `dev environment`.
 ```
